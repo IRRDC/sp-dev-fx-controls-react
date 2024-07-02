@@ -91,4 +91,5 @@ export interface IDynamicFieldProps {
   showAsPercentage?: boolean;
   customIcon?: string;
   orderBy?: string;
+  formatType?: number;
 }

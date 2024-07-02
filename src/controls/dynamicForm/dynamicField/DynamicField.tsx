@@ -81,7 +81,8 @@ export class DynamicField extends React.Component<IDynamicFieldProps, IDynamicFi
       maximumValue,
       minimumValue,
       customIcon,
-      orderBy
+      orderBy,
+      formatType
     } = this.props;
 
     const {
@@ -177,11 +178,38 @@ export class DynamicField extends React.Component<IDynamicFieldProps, IDynamicFi
         }
 
       case 'Choice':
+        const radioButtons: React.ReactNode[] = [];
+        if (formatType === 1) {
+          for (let i: number = 0; i < dropdownOptions.options.length; i++) {
+            const option: IDropdownOption = dropdownOptions.options[i];
+            radioButtons.push(
+            <div>
+              <input
+                style={{ marginRight: 8}}
+                type="radio"
+                id={`ChoiceGroup${this.props.columnInternalName}Choice${i}`}
+                name={`ChoiceGroup${this.props.columnInternalName}`}
+                value={option.text}
+                disabled={dropdownOptions.disabled}
+                onBlur={this.onBlur}
+                checked={option.text === (typeof valueToDisplay === "object" ? valueToDisplay?.key : valueToDisplay)}
+                onChange={(e) => { this.onChange({ text: e.target.value, key: e.target.value }, true); }}
+                 />
+              <label htmlFor={`ChoiceGroup${this.props.columnInternalName}Choice${i}`}>{option.text}</label>
+            </div>
+            );
+          }
+        }
         return <div className={styles.fieldContainer}>
           <div className={`${styles.labelContainer} ${styles.titleContainer}`}>
             <Icon className={styles.fieldIcon} iconName={customIcon ?? "CheckMark"} />
             {labelEl}
           </div>
+          { formatType === 1 ?
+          <div role="radiogroup">
+            {radioButtons}
+          </div>
+          :
           <Dropdown
             {...dropdownOptions}
             defaultSelectedKey={valueToDisplay ? undefined : defaultValue}
@@ -189,6 +217,7 @@ export class DynamicField extends React.Component<IDynamicFieldProps, IDynamicFi
             onChange={(e, option) => { this.onChange(option, true); }}
             onBlur={this.onBlur}
             errorMessage={errorText} />
+          }
           {descriptionEl}
         </div>;
 

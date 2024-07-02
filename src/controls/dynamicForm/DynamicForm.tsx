@@ -1064,6 +1064,7 @@ export class DynamicForm extends React.Component<
         let minValue: number | undefined;
         let maxValue: number | undefined;
         let showAsPercentage: boolean | undefined;
+        let formatType: number | undefined;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const selectedTags: any = [];
 
@@ -1085,6 +1086,7 @@ export class DynamicForm extends React.Component<
           field.Choices.forEach((element) => {
             choices.push({ key: element, text: element });
           });
+          formatType = field.FormatType;
         }
         if (field.FieldType === "MultiChoice") {
           field.MultiChoices.forEach((element) => {
@@ -1300,7 +1302,8 @@ export class DynamicForm extends React.Component<
           minimumValue: minValue,
           maximumValue: maxValue,
           showAsPercentage: showAsPercentage,
-          customIcon: customIcons ? customIcons[field.InternalName] : undefined
+          customIcon: customIcons ? customIcons[field.InternalName] : undefined,
+          formatType: formatType
         });
 
         // This may not be necessary now using RenderListDataAsStream
