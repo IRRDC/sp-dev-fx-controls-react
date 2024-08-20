@@ -81,6 +81,7 @@ export class DynamicField extends React.Component<IDynamicFieldProps, IDynamicFi
       description,
       maximumValue,
       minimumValue,
+      itemsQueryCountLimit,
       customIcon,
       orderBy,
       choiceType
@@ -277,6 +278,7 @@ export class DynamicField extends React.Component<IDynamicFieldProps, IDynamicFi
             itemLimit={1}
             onSelectedItem={(newValue) => { this.onChange(newValue, true); }}
             context={context}
+            itemsQueryCountLimit={itemsQueryCountLimit}
             orderBy={orderBy}
           />
           {descriptionEl}
@@ -302,6 +304,7 @@ export class DynamicField extends React.Component<IDynamicFieldProps, IDynamicFi
             itemLimit={100}
             onSelectedItem={(newValue) => { this.onChange(newValue, true); }}
             context={context}
+            itemsQueryCountLimit={itemsQueryCountLimit}
           />
           {descriptionEl}
           {errorTextEl}
