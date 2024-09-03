@@ -1443,6 +1443,7 @@ export class DynamicForm extends React.Component<
         hideLinkUploadTab={true}
         hideSiteFilesTab={true}
         checkIfFileExists={true}
+        storeLastActiveTab={this.props.storeLastActiveTab ?? true}
       />
       {selectedFile && <div className={styles.selectedFileContainer}>
         <Icon iconName={this.getFileIconFromExtension()} />
